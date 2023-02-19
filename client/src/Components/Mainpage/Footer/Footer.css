@@ -1,0 +1,100 @@
+/* .Footer {
+    background-color: #515151;
+    min-height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    flex-direction: column;
+    
+    font-size: calc(10px + 2vmin);
+    color: white;
+}
+
+hr.footer-border-line{width: 90vh;} */
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+    /* overflow:hidden; */
+}
+
+.footer-containor {
+    height: 15vh;
+    background-color: gray;
+    padding-bottom: 1rem;
+    overflow: auto;
+}
+
+.footer-links {
+    width: 100%;
+    /* height: 30vh; */
+    background-color: gray;
+    color: black;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 0 0 0.5rem 0 ;
+}
+
+.footer-containor .footer-links .footer-heading h3{
+    margin-bottom: 0.5rem;
+}
+
+.footer-heading {
+    display: flex;
+    flex-direction: column;
+    margin-top: 1rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+
+
+.footer-heading h4 {
+    margin-bottom: 0.5rem;
+}
+
+.footer-heading a {
+    color: black;
+    text-decoration: none;
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+}
+
+.footer-heading a:hover {
+    color: red;
+    transition: 0.3s ease-out;
+}
+
+.footer-information {
+    margin-top: 1rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+
+.footer-border-line {
+    width: 90%;
+    margin: auto;
+    
+}
+
+.footer-horizontal-line {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: row;
+}
+
+.footer-horizontal-line a {
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+    text-decoration-line: none;
+    color: black;
+}
+
+.footer-horizontal-line a:hover {
+    text-decoration-line:underline;
+    transition: 0.25s;
+}

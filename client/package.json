@@ -1,0 +1,71 @@
+{
+  "name": "cubat",
+  "version": "0.1.0",
+  "private": true,
+  "homepage": ".",
+  "dependencies": {
+    "@testing-library/jest-dom": "^5.16.4",
+    "@testing-library/react": "^13.3.0",
+    "@testing-library/user-event": "^13.5.0",
+    "@types/jest": "^27.5.2",
+    "@types/node": "^16.11.41",
+    "@types/react": "^18.0.14",
+    "@types/react-dom": "^18.0.5",
+    "@types/react-responsive": "^8.0.5",
+    "@types/three": "^0.144.0",
+    "axios": "^0.27.2",
+    "drei": "^2.2.21",
+    "gapi-script": "^1.2.0",
+    "get-youtube-id": "^1.0.1",
+    "get-youtube-title-await": "^1.1.5",
+    "jwt-decode": "^3.1.2",
+    "react": "^18.2.0",
+    "react-confetti": "^6.1.0",
+    "react-dom": "^18.2.0",
+    "react-drag-to-select": "^1.0.3-rc01",
+    "react-google-login": "^5.2.2",
+    "react-helmet": "^6.1.0",
+    "react-howler": "^5.2.0",
+    "react-input-mask": "^2.0.4",
+    "react-loader-spinner": "^5.1.7-beta.1",
+    "react-responsive": "^9.0.0-beta.10",
+    "react-router-dom": "^6.3.0",
+    "react-scripts": "5.0.1",
+    "react-scroll-to-bottom": "^4.2.0",
+    "react-three-fiber": "^6.0.13",
+    "react-youtube": "^10.0.0",
+    "socket.io-client": "^4.5.1",
+    "three": "^0.144.0",
+    "typescript": "^4.7.4",
+    "web-vitals": "^2.1.4"
+  },
+  "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@types/react-helmet": "^6.1.5"
+  }
+}
