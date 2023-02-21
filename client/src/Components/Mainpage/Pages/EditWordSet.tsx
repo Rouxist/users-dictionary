@@ -13,6 +13,8 @@ import Sidebar from '../Sidebar';
 function NewWordSet() {
     const [update, setUpdate] = useState(true);
     const [selected, setSelected] = useState(true);
+    const [isShiftPressed, setIsShiftPressed] = useState(false);
+    const [isNPressed, setIsNPressed] = useState(false);
     const userContext = useContext(userDataContext);
 
     const params = useParams();
@@ -24,7 +26,32 @@ function NewWordSet() {
     const [wordList, setWordList] = useState(wordSetData.wordList);
 
     useEffect(() => {
-    }, [update])
+        document.onkeydown = (e) => {
+            if (e.key == 'n' || e.key == 'N') {
+                setIsNPressed(true);
+            }
+            if (e.key == 'Shift') {
+                setIsShiftPressed(true);
+            }
+
+        };
+        document.onkeyup = (e) => {
+            if (e.key == 'n' || e.key == 'N') {
+                setIsNPressed(false);
+            }
+            if (e.key == 'Shift') {
+                setIsShiftPressed(false);
+            }
+
+        };
+    }, [])
+
+    useEffect(() => {
+        if (isShiftPressed && isNPressed) {
+            handleWordAdd();
+        }
+    }, [isShiftPressed, isNPressed])
+
     let navigate = useNavigate();
 
     const isPc = useMediaQuery({
@@ -80,6 +107,12 @@ function NewWordSet() {
         setUpdate(!update);
     }
 
+    function handleKeyInput() {
+        document.onkeydown = (e) => {
+            console.log(e.key);
+            // handleWordAdd();
+        };
+    }
 
 
     function displayMeaningInputs(wordIndex: number, data: Array<any>) {
@@ -152,6 +185,7 @@ function NewWordSet() {
                 <div className='new-wordset-main-box'>
                     <button onClick={() => navigate('/wordSetMain')}>돌아가기~~~</button>
                     <h1 className='title'>단어장 수정하기~~</h1>
+                    <h3>Shift + N을 누르면 새로운 단어가 추가돼요~~</h3>
                     <div className="new-wordset-main-area">
                         제목을 입력해 보아요~~~
                         <input value={title} placeholder='제목' type="text" onChange={(e: any) => setTitle(e.target.value)} />
