@@ -1,6 +1,6 @@
 import { Link, useMatch, useResolvedPath } from 'react-router-dom';
-import announcement from '../../Icons/announcement.png';
-import group from '../../Icons/group.png';
+import article from '../../Icons/article.png';
+import home from '../../Icons/home.png';
 import settings from '../../Icons/settings.png';
 import './Sidebar.css';
 
@@ -39,8 +39,8 @@ function Sidebar({ isSelectedFunction }: sidebarProps) {
     return (
         <div className="sidebar">
             <ul className="nav_list">
-                <CustomLink inactiveImg={group} activeImg={group} to="/lobby" isSelectedFunction={isSelectedFunction}>Lobby</CustomLink>
-                <CustomLink inactiveImg={announcement} activeImg={announcement} to="/wordSetMain" isSelectedFunction={isSelectedFunction}>Word Sets</CustomLink>
+                <CustomLink inactiveImg={home} activeImg={home} to="/lobby" isSelectedFunction={isSelectedFunction}>Lobby</CustomLink>
+                <CustomLink inactiveImg={article} activeImg={article} to="/wordSetMain" isSelectedFunction={isSelectedFunction}>Word Sets</CustomLink>
                 <CustomLink inactiveImg={settings} activeImg={settings} to="/setting" isSelectedFunction={isSelectedFunction}>Settings</CustomLink>
             </ul>
         </div>
