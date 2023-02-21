@@ -30,9 +30,10 @@
     border: 1px solid lightgray;
     display: flex;
     flex-direction: column;
-    justify-content: start;
-    align-items: start;
+    justify-content: center;
+    align-items: center;
     width: 20rem;
+    height: 10rem;
     padding: 1rem 1rem 1rem 1rem;
     margin: .5rem 1rem .5rem 1rem;
 }
@@ -48,6 +49,17 @@
 .from {
     margin-top: 1rem;
     text-align: left;
+}
+
+.word-card-area {
+    height: 23vh;
+    overflow: auto;
+}
+
+.button-list button {
+    width: 7rem;
+    height: 3rem;
+    margin: .25rem;
 }
 
 @media (max-width: 500px) {

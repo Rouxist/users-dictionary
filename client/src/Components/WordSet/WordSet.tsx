@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 
 //Component
@@ -23,6 +23,9 @@ function WordSet() {
   const params = useParams();
   const wordSetId = params.wordSetId;
 
+  const [isShowMeaning, setIsShowMeaning] = useState(false);
+  const [currentWordIndex, setCurrentWordIndex] = useState(0);
+
   const data = userContext.wordSetData.find((e: any) => e._id == wordSetId);
 
   async function deleteWordSet() {
@@ -38,24 +41,25 @@ function WordSet() {
     });
     navigate('/wordSetMain');
   }
+
   function editWordSet() {
     navigate('/editWordSet/' + wordSetId);
   }
 
   // for test
   const dummyData = {
-    title: '나의 영단어장~~~',
+    title: 'Literacy Style Words IMJMWDP',
     userId: '1065...',
-    createdDate: 'hi',
+    createdDate: '2023.02.21',
     wordList: [
       {
-        word: 'wow',
+        word: 'harbor',
         meaning: [
-          '어머나!',
-          '세상에!',
-          '에그머니나!'
+          '생각을 품다',
+          '항구',
+          '숨겨주다'
         ],
-        from: '건전한 유튜브 영상~~~'
+        from: '수능 공부'
       },
       {
         word: 'evenly',
@@ -83,6 +87,24 @@ function WordSet() {
     ]
   }
 
+  function handlePrevWord() {
+    if (currentWordIndex != 0) {
+      setCurrentWordIndex(currentWordIndex - 1);
+      setIsShowMeaning(false);
+    }
+  }
+
+  function handleNextWord() {
+    if (currentWordIndex < data.wordList.length - 1) {
+      setCurrentWordIndex(currentWordIndex + 1);
+      setIsShowMeaning(false);
+    }
+  }
+
+  function handleCardClick() {
+    setIsShowMeaning(!isShowMeaning);
+  }
+
   // const data = dummyData
 
   const displayWords = (data: any) => {
@@ -96,6 +118,23 @@ function WordSet() {
           <h5 className='from'>출처: {sess.from}</h5>
         </div>
       )))
+    }
+  }
+
+  function wordCard() {
+    if (!isShowMeaning) {
+      return (
+        <div className='word-card' onClick={handleCardClick}>
+          <h2>{data.wordList[currentWordIndex].word}</h2>
+        </div>
+      )
+    } else {
+      return (
+        <div className='word-card' onClick={handleCardClick}>
+          <h4 className='meanings'>{data.wordList[currentWordIndex].meaning.map((word: string, index: number) => (<h4>{index + 1}. {word}</h4>))}</h4>
+          <h5 className='from'>출처: {data.wordList[currentWordIndex].from}</h5>
+        </div>
+      )
     }
   }
 
@@ -114,8 +153,24 @@ function WordSet() {
     );
   } else {
     return (
-      <div className='mobile-room-area'>
-        모바일 아직 지원 안함..
+      <div className='word-set-area'>
+        <div className="word-set-box">
+          <button onClick={() => navigate('/wordSetMain')}>돌아가기~~~</button>
+          <h1>{data.title}</h1>
+          {currentWordIndex + 1} / {data.wordList.length}
+          <div className="word-card-area">
+            {/* {displayWords(data.wordList)} */}
+            {wordCard()}
+          </div>
+          <div className="button-list">
+            <button onClick={handlePrevWord}>이전 단어</button>
+            <button onClick={handleNextWord}>다음 단어</button>
+            <br />
+            <button onClick={editWordSet}>수정하기</button>
+            <button onClick={deleteWordSet}>삭제하기</button>
+          </div>
+          <h4>만든 날짜 : {data.createdDate.toString()}</h4>
+        </div>
       </div>
     )
   }
