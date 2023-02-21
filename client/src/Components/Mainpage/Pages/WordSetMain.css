@@ -77,15 +77,15 @@
 }
 
 @media (max-width: 500px) {
-  .settings-page {
+  .wordset-main-page {
     width: 100%;
     height: 85vh;
     display: flex;
     flex-direction: column;
   }
 
-  .settings-box {
+  /* .wordset-main-box {
     height: 700vh;
     padding-bottom: 22.43rem;
-  }
+  } */
 }

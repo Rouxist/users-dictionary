@@ -72,19 +72,17 @@ function WordSetMain() {
         )
     } else {
         return (
-            <div className='wordset-page'>
-                <div className='wordset-box'>
+            <div className='wordset-main-page'>
+                <div className='wordset-main-box'>
                     <h1 className='title'>WordSet</h1>
-                    <div className="wordset-area">
-                        {/* <ProfileEdit socket={socket} type='nickname'>Nickname (2 ~ 15 words)</ProfileEdit>
-                    <ProfileEdit socket={socket} type='bio'>Bio</ProfileEdit>
-                    <ProfileEdit socket={socket} type='wcaId'>Wca Id</ProfileEdit> */}
-                        모바일은 아직 없음 ~~~
+                    최근에 추가하거나 수정한 것이 아래로 내려가요 ~~~
+                    <div className="wordset-main-area">
+                        {displayWordSet(wordSetData)}
                     </div>
+                    <button onClick={() => navigate('/newWordSet')}>새 단어장 만들기~~~</button>
                 </div>
                 <Sidebar isSelectedFunction={changeIsSelected} />
             </div>
-
         )
     }
 }
