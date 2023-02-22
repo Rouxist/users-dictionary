@@ -24,6 +24,14 @@
   font-weight: bold;
 }
 
+.title-input {
+  width: 25rem;
+  height: 2.5rem;
+  line-height: 2.5rem;
+  padding: .25rem;
+  margin-bottom: 1rem;
+}
+
 .new-word-list {
   height: 50vh;
   overflow: auto;

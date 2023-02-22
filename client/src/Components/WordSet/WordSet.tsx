@@ -32,9 +32,9 @@ function WordSet() {
     if (window.confirm('삭제한 단어장은 복구할 수 없습니다.')) {
       await axios.put('/removeWordSet', { data: wordSetId }).then((res: any) => { // delete 말고 put 사용함
         if (res.data) {
-          alert('잘 지워짐~~~');
+          alert('삭제되었습니다.');
         } else {
-          alert('잘 안지워짐~~~');
+          alert('삭제가.. 안됐습니다.');
         }
       });
       await axios.put('/fetchWordSet', { userId: userContext.userId }).then((res: any) => {
@@ -126,13 +126,13 @@ function WordSet() {
   function wordCard() {
     if (!isShowMeaning) {
       return (
-        <div className='word-card' onClick={handleCardClick}>
+        <div className='word-card-viewer' onClick={handleCardClick}>
           <h2>{data.wordList[currentWordIndex].word}</h2>
         </div>
       )
     } else {
       return (
-        <div className='word-card' onClick={handleCardClick}>
+        <div className='word-card-viewer' onClick={handleCardClick}>
           <h4 className='meanings'>{data.wordList[currentWordIndex].meaning.map((word: string, index: number) => (<h4>{index + 1}. {word}</h4>))}</h4>
           <h5 className='from'>출처: {data.wordList[currentWordIndex].from}</h5>
         </div>
@@ -150,7 +150,7 @@ function WordSet() {
     return (
       <div className='word-set-area'>
         <div className="word-set-box">
-          <button onClick={() => navigate('/wordSetMain')}>돌아가기~~~</button>
+          <button onClick={() => navigate('/wordSetMain')}>뒤로 가기</button>
           <h1>{data.title}</h1>
           <h4>만든 날짜 : {timeConverter(new Date(data.createdDate))}</h4>
           {displayWords(data.wordList)}
@@ -163,18 +163,22 @@ function WordSet() {
     return (
       <div className='word-set-area'>
         <div className="word-set-box">
-          <button onClick={() => navigate('/wordSetMain')}>돌아가기~~~</button>
+          <button onClick={() => navigate('/wordSetMain')}>뒤로 가기</button>
           <h1>{data.title}</h1>
           {currentWordIndex + 1} / {data.wordList.length}
           <div className="word-card-area">
             {wordCard()}
           </div>
-          <div className="button-list">
-            <button className='mini-button' onClick={handlePrevWord}>이전 단어</button>
-            <button className='mini-button' onClick={handleNextWord}>다음 단어</button>
+          <div className="button-column">
+            <div className="button-row">
+              <button className='mini-button' onClick={handlePrevWord}>이전 단어</button>
+              <button className='mini-button' onClick={handleNextWord}>다음 단어</button>
+            </div>
             <br />
-            <button className='mini-button' onClick={editWordSet}>수정하기</button>
-            <button className='mini-button' onClick={deleteWordSet}>삭제하기</button>
+            <div className="button-row">
+              <button className='mini-button' onClick={editWordSet}>수정하기</button>
+              <button className='mini-button' onClick={deleteWordSet}>삭제하기</button>
+            </div>
           </div>
           <h4>만든 날짜 : {timeConverter(new Date(data.createdDate))}</h4>
         </div>

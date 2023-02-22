@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { useNavigate } from 'react-router-dom';
 import { userDataContext } from '../../../store/userData';
@@ -17,6 +17,14 @@ function NewWordSet() {
     const [isNPressed, setIsNPressed] = useState(false);
     const [title, setTitle] = useState('');
     const [wordList, setWordList] = useState([{ word: '', meaning: ['', ''], from: '' }]);
+
+    const scrollRef = useRef<HTMLInputElement>(null);
+
+    const scrollToBottom = () => {
+        if (scrollRef.current) { // scrollRef가 null이 아닌 경우로 한정시키기.
+            scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+        }
+    };
 
     useEffect(() => {
         document.onkeydown = (e) => {
@@ -57,8 +65,9 @@ function NewWordSet() {
         setSelected(false);
     }
 
-    function handleWordAdd() {
-        setWordList([...wordList, { word: '', meaning: ['', ''], from: '' }]);
+    async function handleWordAdd() {
+        await setWordList([...wordList, { word: '', meaning: ['', ''], from: '' }]);
+        scrollToBottom(); // not working
     }
 
     function handleWordEdit(index: number, value: any) {
@@ -111,7 +120,7 @@ function NewWordSet() {
                     placeholder={'뜻' + (meaningIndex + 1)}
                     onChange={(e: any) => handleMeaningEdit(wordIndex, meaningIndex, e.target.value)}
                 />
-                <button className='mini-button' onClick={() => handleMeaningRemove(wordIndex, meaningIndex)}>삭제</button>
+                <div className='mini-button' onClick={() => handleMeaningRemove(wordIndex, meaningIndex)}>삭제</div>
             </div>
         )))
     }
@@ -119,12 +128,6 @@ function NewWordSet() {
     function displayWordInputs() {
         return (wordList.map((sess: any, wordIndex: number) => (
             <div className='new-word-card' >
-                {/* <h2>{wordIndex + 1}번째 단어~~~</h2>
-                <input placeholder='단어' onChange={(e: any) => handleWordEdit(wordIndex, e.target.value)} />
-                {displayMeaningInputs(wordIndex, sess.meaning)}
-                <button onClick={() => handleMeaningAdd(wordIndex)}>뜻 더 쓰기~~~</button>
-                <input placeholder='출처는?' onChange={(e: any) => handleFromEdit(wordIndex, e.target.value)} /> */}
-
                 <h2>{wordIndex + 1}번째 단어~~~</h2>
                 <input className='word-input' placeholder='단어' onChange={(e: any) => handleWordEdit(wordIndex, e.target.value)} />
                 {displayMeaningInputs(wordIndex, sess.meaning)}

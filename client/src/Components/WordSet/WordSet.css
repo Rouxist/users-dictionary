@@ -24,18 +24,19 @@
     overflow: auto;
 }
 
-.word-card {
-    background-color: #F9F9F9;
+.word-card-viewer {
+    background-color: white;
     border-radius: 1rem;
     border: 1px solid lightgray;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 20rem;
-    height: 10rem;
+    width: 80vw;
+    height: 20vh;
     padding: 1rem 1rem 1rem 1rem;
     margin: .5rem 1rem .5rem 1rem;
+    overflow: auto;
 }
 
 .meanings {
@@ -56,7 +57,17 @@
     overflow: auto;
 }
 
-.button-list button {
+.button-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.button-row {
+    display: flex;
+    flex-direction: row;
+}
+
+.button-row button {
     width: 7rem;
     height: 3rem;
     margin: .25rem;

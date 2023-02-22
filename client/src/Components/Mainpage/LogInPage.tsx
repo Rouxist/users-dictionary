@@ -34,10 +34,10 @@ function LogInPage() {
 
   return (
     <div className='loginpage'>
-      <h1>단어를 외워보자~~~</h1>
+      <h1>단어를 외우는 페이지</h1>
       <GoogleLogin
         render={renderProps => (
-          <button onClick={renderProps.onClick} className='log-in-button'>로그인 하기~~~</button>
+          <button onClick={renderProps.onClick} className='log-in-button'>로그인</button>
         )}
         clientId={clientId}
         onSuccess={(res) => {
