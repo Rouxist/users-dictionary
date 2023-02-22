@@ -154,8 +154,8 @@ function WordSet() {
           <h1>{data.title}</h1>
           <h4>만든 날짜 : {timeConverter(new Date(data.createdDate))}</h4>
           {displayWords(data.wordList)}
-          <button onClick={editWordSet}>수정하기~~~</button>
-          <button onClick={deleteWordSet}>삭제하기~~~</button>
+          <button className='mini-button' onClick={editWordSet}>수정</button>
+          <button className='mini-button' onClick={deleteWordSet}>삭제</button>
         </div>
       </div>
     );
@@ -170,11 +170,11 @@ function WordSet() {
             {wordCard()}
           </div>
           <div className="button-list">
-            <button onClick={handlePrevWord}>이전 단어</button>
-            <button onClick={handleNextWord}>다음 단어</button>
+            <button className='mini-button' onClick={handlePrevWord}>이전 단어</button>
+            <button className='mini-button' onClick={handleNextWord}>다음 단어</button>
             <br />
-            <button onClick={editWordSet}>수정하기</button>
-            <button onClick={deleteWordSet}>삭제하기</button>
+            <button className='mini-button' onClick={editWordSet}>수정하기</button>
+            <button className='mini-button' onClick={deleteWordSet}>삭제하기</button>
           </div>
           <h4>만든 날짜 : {timeConverter(new Date(data.createdDate))}</h4>
         </div>
