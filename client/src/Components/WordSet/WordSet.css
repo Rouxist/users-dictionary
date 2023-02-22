@@ -39,6 +39,20 @@
     overflow: auto;
 }
 
+.word-card-element {
+    width: 30rem;
+    height: 10rem;
+    border-radius: 1rem;
+    border: 1px solid lightgray;
+    margin: 0.25rem;
+    overflow: auto;
+}
+
+.word-card-element-list {
+    height: 70vh;
+    overflow: auto;
+}
+
 .meanings {
     margin-top: 1rem;
     display: flex;

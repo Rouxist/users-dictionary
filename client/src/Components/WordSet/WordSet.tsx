@@ -114,7 +114,7 @@ function WordSet() {
       return <></>;
     } else {
       return (data.map((sess: any, index: number) => (
-        <div className='word-card'>
+        <div className='word-card-element'>
           <h2>{index + 1}. {sess.word}</h2>
           <h4 className='meanings'>{sess.meaning.map((word: string, index: number) => (<h4>{index + 1}. {word}</h4>))}</h4>
           <h5 className='from'>출처: {sess.from}</h5>
@@ -153,7 +153,9 @@ function WordSet() {
           <button onClick={() => navigate('/wordSetMain')}>뒤로 가기</button>
           <h1>{data.title}</h1>
           <h4>만든 날짜 : {timeConverter(new Date(data.createdDate))}</h4>
-          {displayWords(data.wordList)}
+          <div className="word-card-element-list">
+            {displayWords(data.wordList)}
+          </div>
           <button className='mini-button' onClick={editWordSet}>수정</button>
           <button className='mini-button' onClick={deleteWordSet}>삭제</button>
         </div>
