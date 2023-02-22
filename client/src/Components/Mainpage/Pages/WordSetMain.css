@@ -1,5 +1,6 @@
 .wordset-main-page {
   width: 100%;
+  height: 85vh;
   display: flex;
   flex-direction: row;
 }
@@ -13,7 +14,7 @@
   flex-direction: column;
   justify-content: start;
   align-items: center;
-  padding: 1rem 1rem 1rem 1rem;
+  padding: 1rem 1rem 0.5rem 1rem;
   margin: 1rem 1rem 1rem 1rem;
 }
 
@@ -22,23 +23,33 @@
   font-weight: bold;
 }
 
-.wordset-main-area {
-  height: 100%;
-  overflow-y: auto;
+.wordset-list-area {
+  border-radius: 1rem;
+  border: 1px solid lightgray;
+  width: 85vw;
+  height: 60vh;
+  overflow: auto;
   display: flex;
   flex-direction: column;
   /* justify-content: center; */
   align-items: center;
+
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  /* grid-template-columns: 1fr 1fr 1fr; */
+  gap: 1px;
 }
 
 .word-set-card {
-  width: 20rem;
-  border: 1px solid black;
-  border-radius: 1px;
-  margin: 1rem;
+  width: 80%;
+  height: 10rem;
+  border-radius: 1rem;
+  border: 1px solid lightgray;
+  padding: 0.5rem;
+  margin: 0.5rem 1rem 0.5rem 1rem;
 }
 
-.confirm-button {
+.button {
   background-color: #6667ab;
   border: 0px solid black;
   border-radius: 5rem;
@@ -61,16 +72,16 @@
   touch-action: manipulation;
   vertical-align: middle;
   height: 2rem;
-  width: 4rem;
+  width: 8rem;
   transition: 0.25s;
 }
 
-.confirm-button:hover {
+.button:hover {
   background-color: #ababe0;
   color: black;
 }
 
-.confirm-button:focus {
+.button:focus {
   border-color: #008296;
   box-shadow: rgba(213, 217, 217, .5) 0 2px 5px 0;
   outline: 0;
@@ -84,8 +95,24 @@
     flex-direction: column;
   }
 
-  /* .wordset-main-box {
-    height: 700vh;
-    padding-bottom: 22.43rem;
-  } */
+  .wordset-main-box {
+    height: 65vh;
+    /* padding-bottom: 22.43rem; */
+  }
+
+  .wordset-list-area {
+    border-radius: 1rem;
+    border: 1px solid lightgray;
+    width: 80vw;
+    height: 60vh;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1px;
+  }
 }

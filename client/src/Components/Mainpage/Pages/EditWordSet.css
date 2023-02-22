@@ -1,11 +1,11 @@
-.new-wordset-main-page {
+.edit-wordset-main-page {
   width: 100%;
   height: 85vh;
   display: flex;
   flex-direction: row;
 }
 
-.new-wordset-main-box {
+.edit-wordset-main-box {
   background-color: #F9F9F9;
   border-radius: 1rem;
   border: 1px solid lightgray;
@@ -16,7 +16,6 @@
   align-items: center;
   padding: 1rem 1rem 1rem 1rem;
   margin: 1rem 1rem 1rem 1rem;
-  overflow-y: auto;
 }
 
 .title {
@@ -24,7 +23,12 @@
   font-weight: bold;
 }
 
-.new-wordset-main-area {
+.word-list {
+  overflow: auto;
+  height: 50vh;
+}
+
+.edit-wordset-main-area {
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -32,29 +36,57 @@
   align-items: center;
 }
 
-.new-word-card {
-  width: 20rem;
-  background-color: aliceblue;
+.word-card {
+  width: 30rem;
+  height: 15rem;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  background-color: white;
   border: 1px solid black;
   border-radius: 1px;
   margin: 1rem;
 }
 
-.confirm-button {
-  background-color: #6667ab;
+.title-input {
+  width: 25rem;
+  height: 2.5rem;
+  line-height: 2.5rem;
+  padding: .25rem;
+}
+
+.word-input,
+.from-input {
+  height: 1.75rem;
+  margin: .5rem;
+}
+
+.new-meaning-input {
+  display: flex;
+  flex-direction: row;
+}
+
+.new-meaning-input input {
+  padding: .25rem;
+  margin: .125rem;
+}
+
+.mini-button {
+  background-color: lightgray;
   border: 0px solid black;
   border-radius: 5rem;
   /* box-shadow: rgba(213, 217, 217, .5) 0 2px 5px 0; */
   box-shadow: 0 0 1rem 3px rgba(0 0 0 / 15%);
   box-sizing: border-box;
-  color: #fff;
+  color: #000;
   cursor: pointer;
-  display: inline-block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-family: "Amazon Ember", sans-serif;
-  font-size: 1rem;
-  line-height: 29px;
-  padding: 0 10px 0 11px;
-  margin: 0.3rem 0.3rem 0.3rem 0.3rem;
+  font-size: .75rem;
+  margin: .25rem;
   position: relative;
   text-align: center;
   text-decoration: none;
@@ -62,17 +94,17 @@
   -webkit-user-select: none;
   touch-action: manipulation;
   vertical-align: middle;
-  height: 2rem;
+  height: 1.5rem;
   width: 4rem;
   transition: 0.25s;
 }
 
-.confirm-button:hover {
-  background-color: #ababe0;
+.mini-button:hover {
+  background-color: gray;
   color: black;
 }
 
-.confirm-button:focus {
+.mini-button:focus {
   border-color: #008296;
   box-shadow: rgba(213, 217, 217, .5) 0 2px 5px 0;
   outline: 0;

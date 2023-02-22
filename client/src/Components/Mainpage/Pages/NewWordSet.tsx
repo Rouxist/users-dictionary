@@ -13,11 +13,38 @@ import Sidebar from '../Sidebar';
 function NewWordSet() {
     const [update, setUpdate] = useState(true);
     const [selected, setSelected] = useState(true);
+    const [isShiftPressed, setIsShiftPressed] = useState(false);
+    const [isNPressed, setIsNPressed] = useState(false);
     const [title, setTitle] = useState('');
     const [wordList, setWordList] = useState([{ word: '', meaning: ['', ''], from: '' }]);
 
     useEffect(() => {
-    }, [update])
+        document.onkeydown = (e) => {
+            if (e.key == 'n' || e.key == 'N') {
+                setIsNPressed(true);
+            }
+            if (e.key == 'Shift') {
+                setIsShiftPressed(true);
+            }
+
+        };
+        document.onkeyup = (e) => {
+            if (e.key == 'n' || e.key == 'N') {
+                setIsNPressed(false);
+            }
+            if (e.key == 'Shift') {
+                setIsShiftPressed(false);
+            }
+
+        };
+    }, [])
+
+    useEffect(() => {
+        if (isShiftPressed && isNPressed) {
+            handleWordAdd();
+        }
+    }, [isShiftPressed, isNPressed, update])
+
     let navigate = useNavigate();
 
     const isPc = useMediaQuery({
@@ -37,6 +64,13 @@ function NewWordSet() {
     function handleWordEdit(index: number, value: any) {
         const newWordList = wordList;
         newWordList[index].word = value;
+    }
+
+    function handleWordDelete(index: number) {
+        const newWordList = wordList;
+        newWordList.splice(index, 1);
+        setWordList(newWordList);
+        setUpdate(!update);
     }
 
     function handleFromEdit(index: number, value: any) {
@@ -77,7 +111,7 @@ function NewWordSet() {
                     placeholder={'뜻' + (meaningIndex + 1)}
                     onChange={(e: any) => handleMeaningEdit(wordIndex, meaningIndex, e.target.value)}
                 />
-                <button onClick={() => handleMeaningRemove(wordIndex, meaningIndex)}>이 뜻 지우기~~~</button>
+                <button className='mini-button' onClick={() => handleMeaningRemove(wordIndex, meaningIndex)}>삭제</button>
             </div>
         )))
     }
@@ -85,12 +119,18 @@ function NewWordSet() {
     function displayWordInputs() {
         return (wordList.map((sess: any, wordIndex: number) => (
             <div className='new-word-card' >
-                <h2>{wordIndex + 1}번째 단어~~~</h2>
+                {/* <h2>{wordIndex + 1}번째 단어~~~</h2>
                 <input placeholder='단어' onChange={(e: any) => handleWordEdit(wordIndex, e.target.value)} />
-                <h5>뜻을 적어볼까요~~~ </h5>
                 {displayMeaningInputs(wordIndex, sess.meaning)}
                 <button onClick={() => handleMeaningAdd(wordIndex)}>뜻 더 쓰기~~~</button>
-                <input placeholder='출처는?' onChange={(e: any) => handleFromEdit(wordIndex, e.target.value)} />
+                <input placeholder='출처는?' onChange={(e: any) => handleFromEdit(wordIndex, e.target.value)} /> */}
+
+                <h2>{wordIndex + 1}번째 단어~~~</h2>
+                <input className='word-input' placeholder='단어' onChange={(e: any) => handleWordEdit(wordIndex, e.target.value)} />
+                {displayMeaningInputs(wordIndex, sess.meaning)}
+                <div className='mini-button' onClick={() => handleMeaningAdd(wordIndex)}>뜻 추가</div>
+                <input className='from-input' placeholder='출처' onChange={(e: any) => handleFromEdit(wordIndex, e.target.value)} />
+                <div className='mini-button' onClick={() => handleWordDelete(wordIndex)}>삭제</div>
             </div>
         )))
     }
@@ -136,20 +176,18 @@ function NewWordSet() {
                 <Sidebar isSelectedFunction={changeIsSelected} />
                 <div className='new-wordset-main-box'>
                     <button onClick={() => navigate('/wordSetMain')}>돌아가기~~~</button>
-                    <h1 className='title'>새 단어장 만들기~~</h1>
+                    <h1 className='title'>단어장 만들기</h1>
+                    <h3>Shift + N을 누르면 새로운 단어가 추가돼요~~</h3>
                     <div className="new-wordset-main-area">
-                        제목을 입력해 보아요~~~
-                        <input placeholder='제목' type="text" onChange={(e: any) => setTitle(e.target.value)} />
-                        <br /><br />
-                        단어들을 입력해보아요~~~
-                        {displayWordInputs()}
-                        <button onClick={handleWordAdd}>단어 추가하기~~~~</button>
-                        <button onClick={submit}>저장~~~~</button>
-                        <button onClick={() => console.log(wordList)}>미리보기~~~~</button>
+                        <input className='title-input' value={title} placeholder='제목' type="text" onChange={(e: any) => setTitle(e.target.value)} />
+                        <div className="new-word-list">
+                            {displayWordInputs()}
+                        </div>
+                        <button className='mini-button' onClick={handleWordAdd}>단어 추가</button>
+                        <button className='mini-button' onClick={submit}>기장</button>
                     </div>
                 </div>
             </div>
-
         )
     } else {
         return (

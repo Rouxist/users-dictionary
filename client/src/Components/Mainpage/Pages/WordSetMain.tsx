@@ -11,8 +11,6 @@ import Sidebar from '../Sidebar';
 
 function WordSetMain() {
     const userContext = useContext(userDataContext);
-    const userId = userContext.userId;
-    // const [wordSetData, setWordSetData] = useState();
     const fetchedWordSetData = userContext.wordSetData;
     const wordSetData = fetchedWordSetData.sort(function (a: any, b: any) {
         return a.createdDate > b.createdDate;
@@ -41,6 +39,12 @@ function WordSetMain() {
         navigate('/wordSet/' + id);
     }
 
+    function timeConverter(inputDate: Date) {
+        const offset = inputDate.getTimezoneOffset() * 60000;
+        const realDate = new Date(inputDate.getTime() - offset).toISOString();
+        return realDate.replace('T', ' ').replace('Z', ' ').slice(0, 19);
+    }
+
     const displayWordSet = (data: any) => {
         if (data === undefined) {
             return <></>;
@@ -48,8 +52,8 @@ function WordSetMain() {
             return (data.map((sess: any, index: number) => (
                 <div className='word-set-card' onClick={() => enterWordSet(index)}>
                     <h2>{index + 1}. {sess.title}</h2>
-                    <h4>만든 날짜: {sess.createdDate.toString()}</h4>
-                    <h5>누르면 이동함~~~</h5>
+                    <h4>만든 날짜: {timeConverter(new Date(sess.createdDate))}</h4>
+                    <h4>{sess.wordList.length}개의 단어</h4>
                 </div>
             )))
         }
@@ -62,10 +66,10 @@ function WordSetMain() {
                 <div className='wordset-main-box'>
                     <h1 className='title'>WordSet</h1>
                     최근에 추가하거나 수정한 것이 아래로 내려가요 ~~~
-                    <div className="wordset-main-area">
+                    <div className="wordset-list-area">
                         {displayWordSet(wordSetData)}
                     </div>
-                    <button onClick={() => navigate('/newWordSet')}>새 단어장 만들기~~~</button>
+                    <button className='button' onClick={() => navigate('/newWordSet')}>새 단어장 만들기</button>
                 </div>
             </div>
 
@@ -76,10 +80,10 @@ function WordSetMain() {
                 <div className='wordset-main-box'>
                     <h1 className='title'>WordSet</h1>
                     최근에 추가하거나 수정한 것이 아래로 내려가요 ~~~
-                    <div className="wordset-main-area">
+                    <div className="wordset-list-area">
                         {displayWordSet(wordSetData)}
                     </div>
-                    <button onClick={() => navigate('/newWordSet')}>새 단어장 만들기~~~</button>
+                    <button className='button' onClick={() => navigate('/newWordSet')}>새 단어장 만들기</button>
                 </div>
                 <Sidebar isSelectedFunction={changeIsSelected} />
             </div>

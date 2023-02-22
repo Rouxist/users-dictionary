@@ -29,17 +29,19 @@ function WordSet() {
   const data = userContext.wordSetData.find((e: any) => e._id == wordSetId);
 
   async function deleteWordSet() {
-    await axios.put('/removeWordSet', { data: wordSetId }).then((res: any) => { // delete 말고 put 사용함
-      if (res.data) {
-        alert('잘 지워짐~~~');
-      } else {
-        alert('잘 안지워짐~~~');
-      }
-    });
-    await axios.put('/fetchWordSet', { userId: userContext.userId }).then((res: any) => {
-      userContext.setWordSetData(res.data);
-    });
-    navigate('/wordSetMain');
+    if (window.confirm('삭제한 단어장은 복구할 수 없습니다.')) {
+      await axios.put('/removeWordSet', { data: wordSetId }).then((res: any) => { // delete 말고 put 사용함
+        if (res.data) {
+          alert('잘 지워짐~~~');
+        } else {
+          alert('잘 안지워짐~~~');
+        }
+      });
+      await axios.put('/fetchWordSet', { userId: userContext.userId }).then((res: any) => {
+        userContext.setWordSetData(res.data);
+      });
+      navigate('/wordSetMain');
+    }
   }
 
   function editWordSet() {
@@ -138,13 +140,19 @@ function WordSet() {
     }
   }
 
+  function timeConverter(inputDate: Date) {
+    const offset = inputDate.getTimezoneOffset() * 60000;
+    const realDate = new Date(inputDate.getTime() - offset).toISOString();
+    return realDate.replace('T', ' ').replace('Z', ' ').slice(0, 19);
+  }
+
   if (isPc) {
     return (
       <div className='word-set-area'>
         <div className="word-set-box">
           <button onClick={() => navigate('/wordSetMain')}>돌아가기~~~</button>
           <h1>{data.title}</h1>
-          <h4>만든 날짜 : {data.createdDate.toString()}</h4>
+          <h4>만든 날짜 : {timeConverter(new Date(data.createdDate))}</h4>
           {displayWords(data.wordList)}
           <button onClick={editWordSet}>수정하기~~~</button>
           <button onClick={deleteWordSet}>삭제하기~~~</button>
@@ -159,7 +167,6 @@ function WordSet() {
           <h1>{data.title}</h1>
           {currentWordIndex + 1} / {data.wordList.length}
           <div className="word-card-area">
-            {/* {displayWords(data.wordList)} */}
             {wordCard()}
           </div>
           <div className="button-list">
@@ -169,7 +176,7 @@ function WordSet() {
             <button onClick={editWordSet}>수정하기</button>
             <button onClick={deleteWordSet}>삭제하기</button>
           </div>
-          <h4>만든 날짜 : {data.createdDate.toString()}</h4>
+          <h4>만든 날짜 : {timeConverter(new Date(data.createdDate))}</h4>
         </div>
       </div>
     )
