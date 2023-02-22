@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { useNavigate } from 'react-router-dom';
 import { userDataContext } from "../../../store/userData";
@@ -18,11 +18,11 @@ function WordSetMain() {
 
     let navigate = useNavigate();
 
-    useEffect(() => {
-        if (wordSetData.length == 0) {
-            navigate('/')
-        }
-    })
+    // useEffect(() => {
+    //     if (wordSetData.length == 0) {
+    //         navigate('/')
+    //     }
+    // })
 
     const isPc = useMediaQuery({
         query: "(min-width : 500px)"
@@ -47,7 +47,7 @@ function WordSetMain() {
 
     const displayWordSet = (data: any) => {
         if (data === undefined) {
-            return <></>;
+            return <>계속해서 단어장이 표시되지 않을 시 다시 접속해주세요.</>;
         } else {
             return (data.map((sess: any, index: number) => (
                 <div className='word-set-card' onClick={() => enterWordSet(index)}>

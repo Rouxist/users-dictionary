@@ -187,7 +187,7 @@ function NewWordSet() {
                             {displayWordInputs()}
                         </div>
                         <button className='mini-button' onClick={handleWordAdd}>단어 추가</button>
-                        <button className='mini-button' onClick={submit}>기장</button>
+                        <button className='mini-button' onClick={submit}>저장</button>
                     </div>
                 </div>
             </div>
