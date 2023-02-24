@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 
 //Components
 import './LogInPage.css';
@@ -15,8 +15,13 @@ function LogInPage() {
   let navigate = useNavigate();
   const userContext = useContext(userDataContext);
 
+  const [id, setId] = useState('');
+
   //Authentication
   const clientId = process.env.REACT_APP_GOOGLE_CLIENT_ID as string;
+  const tentativeId = process.env.REACT_APP_TENTATIVE_ID as string;
+  const rouxistName = process.env.REACT_APP_ROUXIST_NAME as string;
+  const rouxistId = process.env.REACT_APP_ROUXIST_GOOGLE_ID as string;
 
   async function onSignInSuccess(this: any, res: any) {
     userContext.setIsSignedIn(true);
@@ -30,6 +35,17 @@ function LogInPage() {
 
   const onFailure = (res: any) => {
     console.log("LOGIN FAILED! res: ", res)
+  }
+
+  async function handleSubmit() {
+    if (id == tentativeId) {
+      userContext.setName(rouxistName);
+      userContext.setUserId(rouxistId);
+      await axios.put('/fetchWordSet', { userId: rouxistId }).then((res: any) => {
+        userContext.setWordSetData(res.data);
+      });
+      navigate('/lobby');
+    }
   }
 
   return (
@@ -48,6 +64,8 @@ function LogInPage() {
         isSignedIn={true}
       />
       <p>로그인 시 이용 약관과 개인정보 처리방침에 동의하게 되는 것이라고 볼 수 있겠습니다.</p>
+      <input type="text" placeholder='임시' value={id} onChange={(e) => setId(e.target.value)} />
+      <button onClick={handleSubmit}>go</button>
     </div>
   );
 }
