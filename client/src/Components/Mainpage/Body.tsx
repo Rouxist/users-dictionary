@@ -1,4 +1,6 @@
-import { useEffect } from 'react';
+import axios from 'axios';
+import { useContext, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 //CSS
 import './Body.css';
@@ -17,24 +19,32 @@ import Settings from './Pages/Settings';
 import WordSetMain from './Pages/WordSetMain';
 
 //Authentication
-import { gapi } from 'gapi-script';
+import { auth } from './config';
 
 //Route
 import { Route, Routes } from 'react-router-dom';
+import { userDataContext } from '../../store/userData';
 
 function Body() {
-  //Authentication
-  const clientId = process.env.REACT_APP_GOOGLE_CLIENT_ID as string;
+  let navigate = useNavigate();
+  const userContext = useContext(userDataContext);
 
   useEffect(() => {
-    function start() {
-      gapi.client.init({
-        clientId: clientId,
-        scope: ""
-      })
-    };
-    gapi.load('client:auth2', start);
-  }, []);
+    auth.onAuthStateChanged(function (user) {
+      if (user) {
+        userContext.setIsSignedIn(true);
+        userContext.setName(user.displayName);
+        userContext.setUserId(user.uid);
+        // userContext.setFirstSignIn(user.metadata.creationTime);
+        axios.put('/fetchWordSet', { userId: user.uid }).then((res: any) => {
+          userContext.setWordSetData(res.data);
+          navigate('/lobby');
+        });
+      } else {
+        userContext.setIsSignedIn(false);
+      }
+    });
+  }, [])
 
   return (
     <div className='LogInPage'>

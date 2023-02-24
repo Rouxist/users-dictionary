@@ -1,3 +1,41 @@
 .loginpage {
     height: 85vh;
 }
+
+.sign-in-button {
+    background-color: #6667ab;
+    border: 0px solid black;
+    border-radius: 5rem;
+    /* box-shadow: rgba(213, 217, 217, .5) 0 2px 5px 0; */
+    box-shadow: 0 0 1rem 3px rgba(0 0 0 / 15%);
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    font-family: "Amazon Ember", sans-serif;
+    font-size: 1rem;
+    line-height: 29px;
+    padding: 0 10px 0 11px;
+    margin: 0.3rem 0.3rem 0.3rem 0.3rem;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: middle;
+    height: 2rem;
+    width: 8rem;
+    transition: 0.25s;
+}
+
+.sign-in-button:hover {
+    background-color: #ababe0;
+    color: black;
+}
+
+.sign-in-button:focus {
+    border-color: #008296;
+    box-shadow: rgba(213, 217, 217, .5) 0 2px 5px 0;
+    outline: 0;
+}

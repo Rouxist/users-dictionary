@@ -14,7 +14,11 @@ function NewWordSet() {
     const [update, setUpdate] = useState(true);
     const [selected, setSelected] = useState(true);
     const [isShiftPressed, setIsShiftPressed] = useState(false);
-    const [isNPressed, setIsNPressed] = useState(false);
+    const [isEnterPressed, setIsEnterPressed] = useState(false);
+    const [isMetaPressed, setIsMetaPressed] = useState(false);
+    const [isAltPressed, setIsAltPressed] = useState(false);
+    const [currentWordIndex, setCurrentWordIndex] = useState(0);
+    const [currentMeaningIndex, setCurrentMeaningIndex] = useState(0);
     const userContext = useContext(userDataContext);
 
     const params = useParams();
@@ -22,7 +26,6 @@ function NewWordSet() {
 
     const wordSetData = userContext.wordSetData.find((e: any) => e._id == wordSetId);
 
-    // const wordSetData = dummyData;
     const dummyData = {
         title: 'Literacy Style Words IMJMWDP',
         userId: '1065...',
@@ -62,36 +65,57 @@ function NewWordSet() {
             },
         ]
     }
-
+    // const wordSetData = dummyData;
 
     const [title, setTitle] = useState(wordSetData.title);
     const [wordList, setWordList] = useState(wordSetData.wordList);
 
     useEffect(() => {
         document.onkeydown = (e) => {
-            if (e.key == 'n' || e.key == 'N') {
-                setIsNPressed(true);
+            if (e.key == 'Enter') {
+                setIsEnterPressed(true);
             }
             if (e.key == 'Shift') {
                 setIsShiftPressed(true);
             }
+            if (e.key == 'Meta') {
+                setIsMetaPressed(true);
+            }
+            if (e.key == 'Alt') {
+                setIsAltPressed(true);
+            }
 
         };
         document.onkeyup = (e) => {
-            if (e.key == 'n' || e.key == 'N') {
-                setIsNPressed(false);
+            if (e.key == 'Enter') {
+                setIsEnterPressed(false);
             }
             if (e.key == 'Shift') {
                 setIsShiftPressed(false);
+            }
+            if (e.key == 'Meta') {
+                setIsMetaPressed(false);
+            }
+            if (e.key == 'Alt') {
+                setIsAltPressed(false);
             }
         };
     }, [])
 
     useEffect(() => {
-        if (isShiftPressed && isNPressed) {
+        if (isShiftPressed && isEnterPressed) {
             handleWordAdd();
+            setIsEnterPressed(false); // onKeyUp is not sufficient
         }
-    }, [isShiftPressed, isNPressed])
+        if (isMetaPressed && isEnterPressed) {
+            handleMeaningAdd(currentWordIndex);
+            setIsEnterPressed(false); // onKeyUp is not sufficient
+        }
+        if (isAltPressed && isEnterPressed) {
+            handleMeaningRemove(currentWordIndex, currentMeaningIndex)
+            setIsEnterPressed(false); // onKeyUp is not sufficient
+        }
+    }, [isShiftPressed, isEnterPressed, isMetaPressed, isAltPressed])
 
     let navigate = useNavigate();
 
@@ -104,7 +128,7 @@ function NewWordSet() {
     }
 
     function handleWordAdd() {
-        setWordList([...wordList, { word: '', meaning: ['', ''], from: '' }]);
+        setWordList([...wordList, { word: '', meaning: [''], from: '' }]);
     }
 
     function handleWordDelete(index: number) {
@@ -156,6 +180,7 @@ function NewWordSet() {
                     // value={wordList[wordIndex].meaningList[meaningIndex]} // 지정 안해주면 단어를 지웠을 때 값들이 의도한대로 표시되지 못함
                     placeholder={'뜻' + (meaningIndex + 1)}
                     onChange={(e: any) => handleMeaningEdit(wordIndex, meaningIndex, e.target.value)}
+                    onFocus={() => { setCurrentWordIndex(wordIndex); setCurrentMeaningIndex(meaningIndex) }}
                 />
                 <div className='mini-button' onClick={() => handleMeaningRemove(wordIndex, meaningIndex)}>삭제</div>
             </div>
@@ -217,7 +242,7 @@ function NewWordSet() {
                 <div className='edit-wordset-main-box'>
                     <button onClick={() => navigate('/wordSetMain')}>돌아가기~~~</button>
                     <h1 className='title'>단어장 수정</h1>
-                    <h3>Shift + N을 누르면 새로운 단어가 추가돼요~~</h3>
+                    <h3>Shift + Enter : 단어 추가, Cmd + Enter : 뜻 추가, Opt + Enter : 해당 뜻 삭제</h3>
                     <div className="edit-wordset-main-area">
                         <input className='title-input' value={title} placeholder='제목' type="text" onChange={(e: any) => setTitle(e.target.value)} />
                         <div className="word-list">

@@ -1,11 +1,12 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { useNavigate } from 'react-router-dom';
 import { userDataContext } from '../../store/userData';
 
 
 //Authentication
-import { GoogleLogout } from 'react-google-login';
+import { signOut } from 'firebase/auth';
+import { auth } from './config';
 
 //Components
 import Sidebar from './Sidebar';
@@ -22,19 +23,20 @@ function NewLobby() {
     const userContext = useContext(userDataContext);
 
     const userName = userContext.name;
-
-    useEffect(() => {
-        if (userName.length == 0) {
-            navigate('/')
-        }
-    });
+    // const firstSignInDate = new Date(userContext.firstSignIn);
+    // const firstSignInDateKoreanTime = new Date(firstSignInDate.getTime() - (firstSignInDate.getTimezoneOffset() * 60000)).toISOString().replace('Z', ' ').replace('T', ' ').slice(0, 19);
 
     //Authentication
-    const clientId = process.env.REACT_APP_GOOGLE_CLIENT_ID as string;
+    function firebaseGoogleSignOut() {
+        const handleClick = () => {
+            signOut(auth);
+            userContext.setIsSignedIn(false);
+            navigate('/')
+        }
 
-    function signOutSuccessFunction(this: any) {
-        userContext.setIsSignedIn(false);
-        navigate('/')
+        return (
+            <button className='sign-out-button' onClick={handleClick}>Sign Out</button>
+        )
     }
 
     const [selected, setSelected] = useState(true);
@@ -49,16 +51,11 @@ function NewLobby() {
                 <div className='new-lobby-box'>
                     <h1 className='title'>Lobby</h1>
                     <div className="new-lobby-area">
-                        {userName} 님 로그인 됨~~~ <br />
-                        <GoogleLogout
-                            render={renderProps => (
-                                <button onClick={renderProps.onClick} className='log-out-button'>로그아웃~~~</button>
-                            )}
-                            clientId={clientId}
-                            onLogoutSuccess={() => {
-                                signOutSuccessFunction();
-                            }}
-                        />
+                        <h2>유저 정보</h2>
+                        <h4>이름: {userName}</h4>
+                        <h4>저장한 단어장 개수: {userContext.wordSetData.length}개</h4>
+                        {/* <h4>첫 접속일: {firstSignInDateKoreanTime}</h4> */}
+                        {firebaseGoogleSignOut()}
                     </div>
                 </div>
             </div>
@@ -69,16 +66,11 @@ function NewLobby() {
                 <div className='new-lobby-box'>
                     <h1 className='title'>Lobby</h1>
                     <div className="new-lobby-area">
-                        {userName} 님 로그인 됨~~~ <br />
-                        <GoogleLogout
-                            render={renderProps => (
-                                <button onClick={renderProps.onClick} className='log-out-button'>로그아웃~~~</button>
-                            )}
-                            clientId={clientId}
-                            onLogoutSuccess={() => {
-                                signOutSuccessFunction();
-                            }}
-                        />
+                        <h2>유저 정보</h2>
+                        <h4>이름: {userName}</h4>
+                        <h4>저장한 단어장 개수: {userContext.wordSetData.length}개</h4>
+                        {/* <h4>첫 접속일: {firstSignInDateKoreanTime}</h4> */}
+                        {firebaseGoogleSignOut()}
                     </div>
                 </div>
                 <Sidebar isSelectedFunction={changeIsSelected} />
