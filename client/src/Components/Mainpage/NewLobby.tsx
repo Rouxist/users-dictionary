@@ -53,7 +53,7 @@ function NewLobby() {
                     <div className="new-lobby-area">
                         <h2>유저 정보</h2>
                         <h4>이름: {userName}</h4>
-                        <h4>저장한 단어장 개수: {userContext.wordSetData.length}개</h4>
+                        <h4>저장한 단어장 개수: {userContext.wordSetData.wordSet.length}개</h4>
                         {/* <h4>첫 접속일: {firstSignInDateKoreanTime}</h4> */}
                         {firebaseGoogleSignOut()}
                     </div>
@@ -68,7 +68,7 @@ function NewLobby() {
                     <div className="new-lobby-area">
                         <h2>유저 정보</h2>
                         <h4>이름: {userName}</h4>
-                        <h4>저장한 단어장 개수: {userContext.wordSetData.length}개</h4>
+                        <h4>저장한 단어장 개수: {userContext.wordSetData.wordSet.length}개</h4>
                         {/* <h4>첫 접속일: {firstSignInDateKoreanTime}</h4> */}
                         {firebaseGoogleSignOut()}
                     </div>

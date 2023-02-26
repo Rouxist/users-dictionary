@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import './Body.css';
 
 //Components
+import FocusedWordSet from '../WordSet/FocusedWordSet';
 import WordSet from '../WordSet/WordSet';
 import Agreement from './Footer/Agreement';
 import Develop from './Footer/Develop';
@@ -53,6 +54,7 @@ function Body() {
         <Route path="/lobby" element={<NewLobby />} />
         <Route path="/wordSetMain" element={<WordSetMain />} />
         <Route path="/wordSet/:wordSetId" element={<WordSet />} />
+        <Route path="/wordSet/focused" element={<FocusedWordSet />} />
         <Route path="/newWordSet" element={<NewWordSet />} />
         <Route path="/editWordSet/:wordSetId" element={<EditWordSet />} />
         <Route path="/setting" element={<Settings />} />

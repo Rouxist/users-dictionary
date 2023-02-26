@@ -11,18 +11,12 @@ import Sidebar from '../Sidebar';
 
 function WordSetMain() {
     const userContext = useContext(userDataContext);
-    const fetchedWordSetData = userContext.wordSetData;
+    const fetchedWordSetData = userContext.wordSetData.wordSet;
     const wordSetData = fetchedWordSetData.sort(function (a: any, b: any) {
         return a.createdDate > b.createdDate;
     });
 
     let navigate = useNavigate();
-
-    // useEffect(() => {
-    //     if (wordSetData.length == 0) {
-    //         navigate('/')
-    //     }
-    // })
 
     const isPc = useMediaQuery({
         query: "(min-width : 500px)"
@@ -35,8 +29,12 @@ function WordSetMain() {
     }
 
     function enterWordSet(index: number) {
-        const id = wordSetData[index]._id;
-        navigate('/wordSet/' + id);
+        if (index != -1) {
+            const id = wordSetData[index]._id;
+            navigate('/wordSet/' + id);
+        } else {
+            navigate('/wordSet/focused');
+        }
     }
 
     function timeConverter(inputDate: Date) {
@@ -65,11 +63,10 @@ function WordSetMain() {
                 <Sidebar isSelectedFunction={changeIsSelected} />
                 <div className='wordset-main-box'>
                     <h1 className='title'>WordSet</h1>
-                    최근에 추가하거나 수정한 것이 아래로 내려가요 ~~~
                     <div className="wordset-list-area">
                         {displayWordSet(wordSetData)}
                     </div>
-                    <button className='button' onClick={() => navigate('/newWordSet')}>새 단어장 만들기</button>
+                    <button className='button' onClick={() => navigate('/newWordSet')}>Create</button>
                 </div>
             </div>
 
@@ -79,11 +76,11 @@ function WordSetMain() {
             <div className='wordset-main-page'>
                 <div className='wordset-main-box'>
                     <h1 className='title'>WordSet</h1>
-                    최근에 추가하거나 수정한 것이 아래로 내려가요 ~~~
                     <div className="wordset-list-area">
                         {displayWordSet(wordSetData)}
                     </div>
-                    <button className='button' onClick={() => navigate('/newWordSet')}>새 단어장 만들기</button>
+                    <button className='button' onClick={() => enterWordSet(-1)}>See Focused</button>
+                    <button className='button' onClick={() => navigate('/newWordSet')}>Create</button>
                 </div>
                 <Sidebar isSelectedFunction={changeIsSelected} />
             </div>

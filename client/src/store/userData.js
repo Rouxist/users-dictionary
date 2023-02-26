@@ -8,12 +8,14 @@ const UserData = (props) => {
     const [name, setName] = useState('');
     const [userId, setUserId] = useState(' ');
     const [wordSetData, setWordSetData] = useState([]);
+    const [focusedWordSetData, setFocusedWordSetData] = useState([]);
 
-    const uesr = {
+    const user = {
         isSignedIn: isSignedIn,
         name: name,
         userId: userId,
         wordSetData: wordSetData,
+        focusedWordSetData: focusedWordSetData,
 
         setIsSignedIn: (bool) => {
             setIsSignedIn(bool);
@@ -37,7 +39,7 @@ const UserData = (props) => {
     }
 
     //useMemo : 최적화 관련
-    const value = useMemo(() => (uesr), [uesr]); //record가 아니라 여러 개 넣을 때는 {}로 감싸서
+    const value = useMemo(() => (user), [user]); //record가 아니라 여러 개 넣을 때는 {}로 감싸서
 
     return <userDataContext.Provider value={value}>{props.children}</userDataContext.Provider>;
 }

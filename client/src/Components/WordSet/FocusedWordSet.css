@@ -86,6 +86,7 @@
     justify-content: center;
 }
 
+
 .control-button {
     background-color: lightgray;
     border: 0px solid black;
@@ -124,19 +125,18 @@
     outline: 0;
 }
 
-#focus:hover {
+#wide:hover {
     background-color: lightgray;
-    height: 3rem;
     width: 100%;
 }
 
-#focus:focus {
+#wide:focus {
     background-color: gray;
     color: black;
     width: 100%;
 }
 
-#focus {
+#wide {
     border-color: #008296;
     box-shadow: rgba(213, 217, 217, .5) 0 2px 5px 0;
     outline: 0;

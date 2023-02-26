@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { useNavigate, useParams } from 'react-router-dom';
 import { userDataContext } from '../../../store/userData';
@@ -24,7 +24,17 @@ function NewWordSet() {
     const params = useParams();
     const wordSetId = params.wordSetId;
 
-    const wordSetData = userContext.wordSetData.find((e: any) => e._id == wordSetId);
+    const wordSetData = userContext.wordSetData.wordSet.find((e: any) => e._id == wordSetId);
+
+    //Scroll Down
+    const scrollRef = useRef<HTMLInputElement>(null);
+
+    /** 스크롤 내려주는 함수 */
+    const scrollToBottom = () => {
+        if (scrollRef.current) { // scrollRef가 null이 아닌 경우로 한정시키기.
+            scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+        }
+    };
 
     const dummyData = {
         title: 'Literacy Style Words IMJMWDP',

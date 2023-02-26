@@ -26,7 +26,10 @@ function WordSet() {
   const [isShowMeaning, setIsShowMeaning] = useState(false);
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
 
-  const data = userContext.wordSetData.find((e: any) => e._id == wordSetId);
+  const userId = userContext.userId;
+  const data = userContext.wordSetData.wordSet.find((e: any) => e._id == wordSetId);
+  const focusedWordSetList = userContext.wordSetData.focusedWordSet;
+  const focusedWordList = focusedWordSetList.map((e: any) => e.word);
 
   async function deleteWordSet() {
     if (window.confirm('삭제한 단어장은 복구할 수 없습니다.')) {
@@ -107,6 +110,23 @@ function WordSet() {
     setIsShowMeaning(!isShowMeaning);
   }
 
+  function handleFocus(word: string, meaning: Array<string>, from: string) {
+    const newData = {
+      userId: userId,
+      word: word,
+      meaning: meaning,
+      from: from,
+      addedDate: new Date()
+    }
+    axios.put('/focusWord', { data: newData }).then((res: any) => { // delete 말고 put 사용함
+      if (res.data) {
+        alert('added');
+      } else {
+        alert('failed');
+      }
+    });
+  }
+
   // const data = dummyData
 
   const displayWords = (data: any) => {
@@ -124,15 +144,23 @@ function WordSet() {
   }
 
   function wordCard() {
+    function idSelector(word: string) {
+      if (focusedWordList.includes(word)) {
+        return 'focused-word'
+      } else {
+        return ''
+      }
+    }
+
     if (!isShowMeaning) {
       return (
-        <div className='word-card-viewer' onClick={handleCardClick}>
+        <div className='word-card-viewer' id={idSelector(data.wordList[currentWordIndex].word)} onClick={handleCardClick} >
           <h2>{data.wordList[currentWordIndex].word}</h2>
         </div>
       )
     } else {
       return (
-        <div className='word-card-viewer' onClick={handleCardClick}>
+        <div className='word-card-viewer' id={idSelector(data.wordList[currentWordIndex].word)} onClick={handleCardClick}>
           <h4 className='meanings'>{data.wordList[currentWordIndex].meaning.map((word: string, index: number) => (<h4>{index + 1}. {word}</h4>))}</h4>
           <h5 className='from'>출처: {data.wordList[currentWordIndex].from}</h5>
         </div>
@@ -156,8 +184,8 @@ function WordSet() {
           <div className="word-card-element-list">
             {displayWords(data.wordList)}
           </div>
-          <button className='mini-button' onClick={editWordSet}>수정</button>
-          <button className='mini-button' onClick={deleteWordSet}>삭제</button>
+          <button className='control-button' onClick={editWordSet}>수정</button>
+          <button className='control-button' onClick={deleteWordSet}>삭제</button>
         </div>
       </div>
     );
@@ -173,16 +201,22 @@ function WordSet() {
           </div>
           <div className="button-column">
             <div className="button-row">
-              <button className='mini-button' onClick={handlePrevWord}>이전 단어</button>
-              <button className='mini-button' onClick={handleNextWord}>다음 단어</button>
+              <button className='control-button' onClick={handlePrevWord}>Prev</button>
+              <button className='control-button' onClick={handleNextWord}>Next</button>
             </div>
-            <br />
             <div className="button-row">
-              <button className='mini-button' onClick={editWordSet}>수정하기</button>
-              <button className='mini-button' onClick={deleteWordSet}>삭제하기</button>
+              <button className='control-button' id='focus' onClick={() => {
+                const currentWord = data.wordList[currentWordIndex];
+                handleFocus(currentWord.word, currentWord.meaning, currentWord.from);
+              }
+              }>Focus</button>
+            </div>
+            <div className="button-row">
+              <button className='control-button' onClick={editWordSet}>Edit</button>
+              <button className='control-button' onClick={deleteWordSet}>Delete</button>
             </div>
           </div>
-          <h4>만든 날짜 : {timeConverter(new Date(data.createdDate))}</h4>
+          <h4>created at : {timeConverter(new Date(data.createdDate))}</h4>
         </div>
       </div>
     )
