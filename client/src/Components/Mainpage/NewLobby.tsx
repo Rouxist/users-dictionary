@@ -55,6 +55,7 @@ function NewLobby() {
                         <h4>이름: {userName}</h4>
                         <h4>저장한 단어장 개수: {userContext.wordSetData.wordSet.length}개</h4>
                         {/* <h4>첫 접속일: {firstSignInDateKoreanTime}</h4> */}
+                        <button onClick={() => navigate('/wordSet/all')}>Shuffle All</button>
                         {firebaseGoogleSignOut()}
                     </div>
                 </div>
@@ -70,6 +71,7 @@ function NewLobby() {
                         <h4>이름: {userName}</h4>
                         <h4>저장한 단어장 개수: {userContext.wordSetData.wordSet.length}개</h4>
                         {/* <h4>첫 접속일: {firstSignInDateKoreanTime}</h4> */}
+                        <button className='sign-out-button' onClick={() => navigate('/wordSet/all')}>Shuffle All</button>
                         {firebaseGoogleSignOut()}
                     </div>
                 </div>

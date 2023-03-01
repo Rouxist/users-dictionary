@@ -25,6 +25,7 @@ import { auth } from './config';
 //Route
 import { Route, Routes } from 'react-router-dom';
 import { userDataContext } from '../../store/userData';
+import AllWordSet from '../WordSet/AllWordSet';
 
 function Body() {
   let navigate = useNavigate();
@@ -54,6 +55,7 @@ function Body() {
         <Route path="/lobby" element={<NewLobby />} />
         <Route path="/wordSetMain" element={<WordSetMain />} />
         <Route path="/wordSet/:wordSetId" element={<WordSet />} />
+        <Route path="/wordSet/all" element={<AllWordSet />} />
         <Route path="/wordSet/focused" element={<FocusedWordSet />} />
         <Route path="/newWordSet" element={<NewWordSet />} />
         <Route path="/editWordSet/:wordSetId" element={<EditWordSet />} />

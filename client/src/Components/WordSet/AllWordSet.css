@@ -1,0 +1,196 @@
+* {
+    font-family: 'Nanum Gothic', sans-serif;
+    font-weight: 500;
+}
+
+.all-word-set-area {
+    width: 100%;
+    height: 85vh;
+    display: flex;
+    flex-direction: row;
+}
+
+.all-word-set-box {
+    background-color: #F9F9F9;
+    border-radius: 1rem;
+    border: 1px solid lightgray;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    padding: 1rem 1rem 1rem 1rem;
+    margin: 1rem 1rem 1rem 1rem;
+    overflow: auto;
+}
+
+.word-card-viewer {
+    background-color: white;
+    border-radius: 1rem;
+    border: 1px solid lightgray;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 80vw;
+    height: 20vh;
+    padding: 1rem 1rem 1rem 1rem;
+    margin: .5rem 1rem .5rem 1rem;
+    overflow: auto;
+}
+
+.word-card-element {
+    width: 30rem;
+    height: 10rem;
+    border-radius: 1rem;
+    border: 1px solid lightgray;
+    margin: 0.25rem;
+    overflow: auto;
+}
+
+.word-card-element-list {
+    height: 70vh;
+    overflow: auto;
+}
+
+#focused-word {
+    border: 1px solid gold;
+}
+
+.meanings {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    text-align: left;
+}
+
+.from {
+    margin-top: 1rem;
+    text-align: left;
+}
+
+.word-card-area {
+    height: 23vh;
+    overflow: auto;
+}
+
+.button-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.button-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.control-button {
+    background-color: lightgray;
+    border: 0px solid black;
+    border-radius: 5rem;
+    /* box-shadow: rgba(213, 217, 217, .5) 0 2px 5px 0; */
+    box-shadow: 0 0 1rem 3px rgba(0 0 0 / 15%);
+    box-sizing: border-box;
+    color: #000;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "Amazon Ember", sans-serif;
+    font-size: .75rem;
+    margin: .25rem;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: middle;
+    height: 3rem;
+    width: 7rem;
+    transition: 0.25s;
+}
+
+.control-button:hover {
+    background-color: gray;
+    color: black;
+}
+
+.control-button:focus {
+    border-color: #008296;
+    box-shadow: rgba(213, 217, 217, .5) 0 2px 5px 0;
+    outline: 0;
+}
+
+#focus:hover {
+    background-color: lightgray;
+    height: 3rem;
+    width: 100%;
+}
+
+#focus:focus {
+    background-color: gray;
+    color: black;
+    width: 100%;
+}
+
+#focus {
+    border-color: #008296;
+    box-shadow: rgba(213, 217, 217, .5) 0 2px 5px 0;
+    outline: 0;
+    width: 100%;
+}
+
+@media (max-width: 500px) {
+    .mobile-room-area {
+        height: 150vh;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .scr-stopwatch-area {
+        display: flex;
+        flex-direction: column;
+        margin: 2rem 1rem 0.1rem 0rem;
+        width: 100%;
+        height: 35rem;
+        z-index: 1;
+    }
+
+    .stopwatch-area-frame {
+        margin: 0.1rem 0.5rem 0.5rem 0.5rem;
+    }
+
+    .right-area {
+        flex: 1;
+        width: 100vw;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .stat-area {
+        margin: 0rem 0.5rem 0.5rem 0.5rem;
+    }
+
+    .chat-area {
+        margin: 0rem 0.5rem 0rem 0.5rem;
+    }
+
+    .room-info-box {
+        width: 100%;
+        height: 15rem;
+        margin: 0.5rem;
+    }
+
+    .info-row {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .user-list {
+        width: 90vw;
+        height: 100%;
+    }
+}
