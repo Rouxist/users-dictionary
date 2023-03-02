@@ -17,6 +17,7 @@ function AllWordSet() {
   });
   let navigate = useNavigate();
   const userContext = useContext(userDataContext);
+  const userId = userContext.userId;
 
   const [isShowMeaning, setIsShowMeaning] = useState(false);
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
@@ -65,14 +66,40 @@ function AllWordSet() {
   }
 
   async function handleUnfocus() {
-    const id = wordList[currentWordIndex]._id;
-    await axios.put('/unfocusWord', { id: id }).then((res: any) => { // delete 말고 put 사용함
-      if (res.data) {
-        alert('unfocused');
-      } else {
-        alert('failed!!!!!!!!!!!!!!!!!!!');
+    if (focusedWordList.includes(wordList[currentWordIndex].word)) {
+      const id = wordList[currentWordIndex]._id;
+      await axios.put('/unfocusWord', { id: id }).then((res: any) => { // delete 말고 put 사용함
+        if (res.data) {
+          alert('unfocused');
+        } else {
+          alert('failed!!!!!!!!!!!!!!!!!!!');
+        }
+      });
+    } else {
+      const currentWord = wordList[currentWordIndex];
+      const newData = {
+        userId: userId,
+        word: currentWord.word,
+        meaning: currentWord.meaning,
+        from: currentWord.from,
+        addedDate: new Date()
       }
-    });
+      axios.put('/focusWord', { data: newData }).then((res: any) => { // delete 말고 put 사용함
+        if (res.data) {
+          alert('added');
+        } else {
+          alert('failed');
+        }
+      });
+    }
+  }
+
+  function focusLetter() {
+    if (focusedWordList.includes(wordList[currentWordIndex].word)) {
+      return 'Unfocus'
+    } else {
+      return 'Focus'
+    }
   }
 
   function wordCard() {
@@ -125,7 +152,7 @@ function AllWordSet() {
           </div>
           <div className="button-column">
             <div className="button-row">
-              <button className='control-button' id='wide' onClick={handleUnfocus}>Unfocus</button>
+              <button className='control-button' id='wide' onClick={handleUnfocus}>{focusLetter()}</button>
             </div>
             <div className="button-row">
               <button className='control-button' onClick={handlePrevWord}>Prev</button>
