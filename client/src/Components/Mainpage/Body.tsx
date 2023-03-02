@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import './Body.css';
 
 //Components
+import AllWordSet from '../WordSet/AllWordSet';
 import FocusedWordSet from '../WordSet/FocusedWordSet';
 import WordSet from '../WordSet/WordSet';
 import Agreement from './Footer/Agreement';
@@ -25,7 +26,6 @@ import { auth } from './config';
 //Route
 import { Route, Routes } from 'react-router-dom';
 import { userDataContext } from '../../store/userData';
-import AllWordSet from '../WordSet/AllWordSet';
 
 function Body() {
   let navigate = useNavigate();

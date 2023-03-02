@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 
 //Component
@@ -26,10 +26,17 @@ function WordSet() {
   const [isShowMeaning, setIsShowMeaning] = useState(false);
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
 
+
   const userId = userContext.userId;
-  const data = userContext.wordSetData.wordSet.find((e: any) => e._id == wordSetId);
   const focusedWordSetList = userContext.wordSetData.focusedWordSet;
   const focusedWordList = focusedWordSetList.map((e: any) => e.word);
+
+  const [data, setData] = useState({ title: '', userId: '', createdDate: new Date(), wordList: [{ word: '', meaning: [''], from: '수능 공부' }] });
+
+  useEffect(() => {
+    const fetchedData = userContext.wordSetData.wordSet.find((e: any) => e._id == wordSetId);
+    setData(fetchedData);
+  }, [])
 
   async function deleteWordSet() {
     if (window.confirm('삭제한 단어장은 복구할 수 없습니다.')) {
@@ -92,6 +99,8 @@ function WordSet() {
     ]
   }
 
+  // const data = dummyData
+
   function handlePrevWord() {
     if (currentWordIndex != 0) {
       setCurrentWordIndex(currentWordIndex - 1);
@@ -110,12 +119,13 @@ function WordSet() {
     setIsShowMeaning(!isShowMeaning);
   }
 
-  function handleFocus(word: string, meaning: Array<string>, from: string) {
+  function handleFocus() {
+    const currentWord = data.wordList[currentWordIndex];
     const newData = {
       userId: userId,
-      word: word,
-      meaning: meaning,
-      from: from,
+      word: currentWord.word,
+      meaning: currentWord.meaning,
+      from: currentWord.from,
       addedDate: new Date()
     }
     axios.put('/focusWord', { data: newData }).then((res: any) => { // delete 말고 put 사용함
@@ -127,7 +137,15 @@ function WordSet() {
     });
   }
 
-  // const data = dummyData
+  function handleShuffle() {
+    const shuffledWordList = data.wordList.sort(() => Math.random() - 0.5);
+    setData({
+      ...data,
+      wordList: shuffledWordList
+    })
+    setCurrentWordIndex(0);
+  }
+
 
   const displayWords = (data: any) => {
     if (data === undefined) {
@@ -205,15 +223,14 @@ function WordSet() {
               <button className='control-button' onClick={handleNextWord}>Next</button>
             </div>
             <div className="button-row">
-              <button className='control-button' id='focus' onClick={() => {
-                const currentWord = data.wordList[currentWordIndex];
-                handleFocus(currentWord.word, currentWord.meaning, currentWord.from);
-              }
-              }>Focus</button>
+              <button className='control-button' id='focus' onClick={handleFocus}>Focus</button>
             </div>
             <div className="button-row">
               <button className='control-button' onClick={editWordSet}>Edit</button>
               <button className='control-button' onClick={deleteWordSet}>Delete</button>
+            </div>
+            <div className="button-row">
+              <button className='control-button' id='focus' onClick={handleShuffle}>shuffle</button>
             </div>
           </div>
           <h4>created at : {timeConverter(new Date(data.createdDate))}</h4>
