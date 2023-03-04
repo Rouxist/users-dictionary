@@ -28,8 +28,6 @@ function WordSet() {
 
 
   const userId = userContext.userId;
-  const focusedWordSetList = userContext.wordSetData.focusedWordSet;
-  const focusedWordList = focusedWordSetList.map((e: any) => e.word);
 
   const [data, setData] = useState({ title: '', userId: '', createdDate: new Date(), wordList: [{ word: '', meaning: [''], from: '수능 공부' }] });
 
@@ -37,6 +35,9 @@ function WordSet() {
     const fetchedData = userContext.wordSetData.wordSet.find((e: any) => e._id == wordSetId);
     setData(fetchedData);
   }, [])
+
+  const focusedWordSetList = userContext.wordSetData.focusedWordSet;
+  const focusedWordList = focusedWordSetList.map((e: any) => e.word);
 
   async function deleteWordSet() {
     if (window.confirm('삭제한 단어장은 복구할 수 없습니다.')) {

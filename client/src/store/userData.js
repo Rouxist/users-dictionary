@@ -1,3 +1,4 @@
+import axios from "axios";
 import { createContext, useMemo, useState } from "react";
 
 export const userDataContext = createContext();
@@ -36,6 +37,12 @@ const UserData = (props) => {
         addWordSetData: (data) => {
             setWordSetData(...wordSetData, data);
         },
+
+        fetchWordSetData: () => {
+            axios.put('/fetchWordSet', { userId: userId }).then((res) => {
+                setWordSetData(res.data);
+            });
+        }
     }
 
     //useMemo : 최적화 관련

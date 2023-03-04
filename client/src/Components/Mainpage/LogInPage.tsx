@@ -23,9 +23,9 @@ function LogInPage() {
         userContext.setIsSignedIn(true);
         userContext.setName(data.user.displayName);
         userContext.setUserId(data.user.uid);
-        userContext.setFirstSignIn(data.metadata.creationTime);
+        // userContext.setFirstSignIn(data.metadata.creationTime);
         axios.put('/fetchWordSet', { userId: data.user.uid }).then((res: any) => {
-          userContext.setWordData(res.data);
+          userContext.setWordSetData(res.data);
           navigate('/lobby')
         });
       })

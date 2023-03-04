@@ -44,40 +44,51 @@ function NewLobby() {
         setSelected(false);
     }
 
-    if (isPc) {
+    if (userContext.wordSetData.wordSet == undefined) {
+        navigate('/')
         return (
             <div className='new-lobby-page'>
-                <Sidebar isSelectedFunction={changeIsSelected} />
-                <div className='new-lobby-box'>
-                    <h1 className='title'>Lobby</h1>
-                    <div className="new-lobby-area">
-                        <h2>유저 정보</h2>
-                        <h4>이름: {userName}</h4>
-                        <h4>저장한 단어장 개수: {userContext.wordSetData.wordSet.length}개</h4>
-                        {/* <h4>첫 접속일: {firstSignInDateKoreanTime}</h4> */}
-                        <button onClick={() => navigate('/wordSet/all')}>Shuffle All</button>
-                        {firebaseGoogleSignOut()}
-                    </div>
+                <div className="new-lobby-box">
+                    Redirecting..
                 </div>
             </div>
-        );
+        )
     } else {
-        return (
-            <div className='new-lobby-page'>
-                <div className='new-lobby-box'>
-                    <h1 className='title'>Lobby</h1>
-                    <div className="new-lobby-area">
-                        <h2>유저 정보</h2>
-                        <h4>이름: {userName}</h4>
-                        <h4>저장한 단어장 개수: {userContext.wordSetData.wordSet.length}개</h4>
-                        {/* <h4>첫 접속일: {firstSignInDateKoreanTime}</h4> */}
-                        <button className='sign-out-button' onClick={() => navigate('/wordSet/all')}>Shuffle All</button>
-                        {firebaseGoogleSignOut()}
+        if (isPc) {
+            return (
+                <div className='new-lobby-page'>
+                    <Sidebar isSelectedFunction={changeIsSelected} />
+                    <div className='new-lobby-box'>
+                        <h1 className='title'>Lobby</h1>
+                        <div className="new-lobby-area">
+                            <h2>유저 정보</h2>
+                            <h4>이름: {userName}</h4>
+                            <h4>저장한 단어장 개수: {userContext.wordSetData.wordSet.length}개</h4>
+                            {/* <h4>첫 접속일: {firstSignInDateKoreanTime}</h4> */}
+                            <button onClick={() => navigate('/wordSet/all')}>Shuffle All</button>
+                            {firebaseGoogleSignOut()}
+                        </div>
                     </div>
                 </div>
-                <Sidebar isSelectedFunction={changeIsSelected} />
-            </div>
-        );
+            );
+        } else {
+            return (
+                <div className='new-lobby-page'>
+                    <div className='new-lobby-box'>
+                        <h1 className='title'>Lobby</h1>
+                        <div className="new-lobby-area">
+                            <h2>유저 정보</h2>
+                            <h4>이름: {userName}</h4>
+                            <h4>저장한 단어장 개수: {userContext.wordSetData.wordSet.length}개</h4>
+                            {/* <h4>첫 접속일: {firstSignInDateKoreanTime}</h4> */}
+                            <button className='sign-out-button' onClick={() => navigate('/wordSet/all')}>Shuffle All</button>
+                            {firebaseGoogleSignOut()}
+                        </div>
+                    </div>
+                    <Sidebar isSelectedFunction={changeIsSelected} />
+                </div>
+            );
+        }
     }
 }
 
